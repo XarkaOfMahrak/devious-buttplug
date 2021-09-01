@@ -14,17 +14,27 @@ const ChalkInputText = styled.textarea`
   }
 `;
 
+/** For now, just replace curly quotes with normal quotes */
+function sanitize(string) {
+  return string.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+}
+
 function LineWriter({ target, onSuccessfulLine, onTypo }) {
+  const sanitizedTarget = sanitize(target);
   const [text, setText] = useState("");
   const [initialized, initialize] = useState(false);
 
   function onChange(value) {
     if (!initialized) initialize(true);
+    const sanitizedValue = sanitize(value);
 
-    if (value === target) {
+    if (sanitizedValue === sanitizedTarget) {
       onSuccessfulLine();
       setText("");
-    } else if (target.startsWith(value) || value.length < 3) {
+    } else if (
+      sanitizedTarget.startsWith(sanitizedValue) ||
+      sanitizedValue.length < 3
+    ) {
       setText(value);
     } else {
       onTypo(value);
