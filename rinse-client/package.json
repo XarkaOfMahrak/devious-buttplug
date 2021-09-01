@@ -19,7 +19,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -r https://github.com/CammyLeone/cammyleone.github.io -b main --dist build --dest rinse -m ",
+    "deploy": "gh-pages -r git@github-cammy:CammyLeone/cammyleone.github.io -u 'Cammy Leone <cammy@willyouplease.me>' -b main --dist build --dest rinse -m ",
     "start": "react-app-rewired start --scripts-version react-scripts",
     "build": "react-app-rewired build --scripts-version react-scripts",
     "eject": "react-scripts eject"

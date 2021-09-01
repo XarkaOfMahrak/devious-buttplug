@@ -8,7 +8,7 @@
     "check-types": "tsc -p . --noEmit",
     "prebuild": "yarn get-about && yarn check-types",
     "build": "gatsby build --prefix-paths",
-    "deploy": "gatsby clean && yarn build && gh-pages -r https://github.com/CammyLeone/cammyleone.github.io -b main --dist public --dest all -m ",
+    "deploy": "gh-pages -r git@github-cammy:CammyLeone/cammyleone.github.io -u 'Cammy Leone <cammy@willyouplease.me>' -b main --dist build --dest all -m ",
     "prestart": "yarn get-about",
     "start": "ENABLE_GATSBY_REFRESH_ENDPOINT=true gatsby develop",
     "clean": "rm -rf node_modules && gatsby clean",
