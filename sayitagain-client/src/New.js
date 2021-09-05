@@ -26,7 +26,7 @@ export default function New() {
   const generateLink = ({ text, count, cashtag }) => {
     const encoded = btoa(
       qs.stringify({
-        text,
+        text: text.trim(),
         count,
       })
     );
