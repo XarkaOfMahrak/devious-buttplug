@@ -32,7 +32,6 @@ function LineWriter({ target, onSuccessfulLine, onTypo }) {
     //Prevent cheating !! Allow typing only a few char at a time. We have some leniency for autocorrections on the phones.
     //We reject on blatant cheating tho.
     const changeLength = sanitizedValue.length - previousValueLength
-    setPreviousValueLength(sanitizedValue.length)
     if (
         changeLength > 5 ||
         changeLength === sanitizedTarget.length
@@ -49,6 +48,7 @@ function LineWriter({ target, onSuccessfulLine, onTypo }) {
       sanitizedValue.length < 3
     ) {
       setText(value);
+	  setPreviousValueLength(sanitizedValue.length)
     } else {
       onTypo(value);
       setText("");
