@@ -23,14 +23,27 @@ function LineWriter({ target, onSuccessfulLine, onTypo }) {
   const sanitizedTarget = sanitize(target);
   const [text, setText] = useState("");
   const [initialized, initialize] = useState(false);
+  const [previousValueLength, setPreviousValueLength] = useState(0);
 
   function onChange(value) {
     if (!initialized) initialize(true);
     const sanitizedValue = sanitize(value);
 
-    if (sanitizedValue === sanitizedTarget) {
+    //Prevent cheating !! Allow typing only a few char at a time. We have some leniency for autocorrections on the phones.
+    //We reject on blatant cheating tho.
+    const changeLength = sanitizedValue.length - previousValueLength
+    setPreviousValueLength(sanitizedValue.length)
+    if (
+        changeLength > 5 ||
+        changeLength === sanitizedTarget.length
+    ) {
+      onTypo(value + "(No Cheating !)");
+      setText("");
+      setPreviousValueLength(0)
+    } else if (sanitizedValue === sanitizedTarget) {
       onSuccessfulLine();
       setText("");
+      setPreviousValueLength(0)
     } else if (
       sanitizedTarget.startsWith(sanitizedValue) ||
       sanitizedValue.length < 3
@@ -39,6 +52,7 @@ function LineWriter({ target, onSuccessfulLine, onTypo }) {
     } else {
       onTypo(value);
       setText("");
+      setPreviousValueLength(0)
     }
   }
 
