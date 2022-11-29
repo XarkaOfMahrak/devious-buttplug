@@ -48,7 +48,7 @@ function LineWriter({ target, onSuccessfulLine, onTypo }) {
       sanitizedValue.length < 3
     ) {
       setText(value);
-	  setPreviousValueLength(sanitizedValue.length)
+      setPreviousValueLength(sanitizedValue.length)
     } else {
       onTypo(value);
       setText("");
